@@ -19397,12 +19397,31 @@ var FilePond = vue_filepond__WEBPACK_IMPORTED_MODULE_1___default()((filepond_plu
     FilePond: FilePond
   },
   data: function data() {
-    return {};
+    return {
+      images: []
+    };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    axios.get("/images").then(function (response) {
+      _this.images = response.data;
+    })["catch"](function (error) {
+      console.error(error);
+    });
   },
   methods: {
     filepondInitialized: function filepondInitialized() {
       console.log("filepond");
       console.log("filepond Object", this.$refs.pond);
+    },
+    handleProcessesFile: function handleProcessesFile(error, file) {
+      if (error) {
+        console.log(error);
+        return;
+      }
+
+      this.images.unshift(file.serverId);
     }
   }
 });
@@ -19422,19 +19441,44 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
+var _hoisted_1 = {
+  "class": "mt-8 mb-24"
+};
+
+var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "text-2xl font-medium text-center"
+}, "Image Gallery", -1
+/* HOISTED */
+);
+
+var _hoisted_3 = {
+  "class": "grid grid-cols-3 gap-2 justify-evenly mt-4"
+};
+var _hoisted_4 = ["src"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_file_pond = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("file-pond");
 
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_file_pond, {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_file_pond, {
     "class": "mt-5",
     name: "image",
     ref: "pond",
     "label-idle": "click to choose iamge or drage here...",
     onInit: $options.filepondInitialized,
-    "accepted-file-types": "image/*"
+    "accepted-file-types": "image/*",
+    onProcessfile: $options.handleProcessesFile
   }, null, 8
   /* PROPS */
-  , ["onInit"]);
+  , ["onInit", "onProcessfile"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.images, function (image, index) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+      key: index
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+      src: "/storage/images/".concat(image)
+    }, null, 8
+    /* PROPS */
+    , _hoisted_4)]);
+  }), 128
+  /* KEYED_FRAGMENT */
+  ))])])]);
 }
 
 /***/ }),
