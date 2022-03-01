@@ -5,4 +5,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [ImageController::class, "index"]);
 Route::get('/images', [ImageController::class, "show"]);
-Route::post('/', [ImageController::class, "store"]);
+Route::post('/upload', [ImageController::class, "store"]);
